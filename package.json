@@ -19,14 +19,15 @@
   },
   "homepage": "https://github.com/LeoTTH/back_end_module2_assignment#readme",
   "devDependencies": {
+    "@types/morgan": "^1.9.10",
     "@types/node": "^26.6.4",
     "ts-node": "^10.9.2",
     "typescript": "^7.0.2"
   },
   "dependencies": {
     "@types/express": "^5.0.6",
-    "@types/morgan": "^1.9.10",
     "express": "^5.2.1",
+    "list": "^2.0.19",
     "morgan": "^1.12.1"
   }
 }
