@@ -9,7 +9,7 @@ export interface Ticket {
 
 export const tickets: Ticket[] = [
     {
-        id: 1,
+        id:1,
         title: "Update footer copyright year",
         description: "Footer still shows 2024",
         priority: "low",
@@ -17,7 +17,7 @@ export const tickets: Ticket[] = [
         createdAt: new Date("2026-10-16T10:00:00.000Z")
     },
     {
-        id: 2,
+        id:2,
         title: "Profile picture upload slow",
         description: "Upload takes 30+ seconds",
         priority: "medium",
