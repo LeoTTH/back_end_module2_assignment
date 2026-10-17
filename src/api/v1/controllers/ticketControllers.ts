@@ -106,3 +106,93 @@ export const createTicket = async (
         next(error);
     }
 };
+
+// Controller function to update a ticket by ID
+export const updateTicket = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const id: number = Number(req.params.id);
+
+        const validPriorities: Ticket["priority"][] = [
+            "critical",
+            "high",
+            "medium",
+            "low"
+        ];
+
+        const validStatuses: Ticket["status"][] = [
+            "open",
+            "in-progress",
+            "resolved"
+        ];
+
+        // Validate priority if provided
+        if (
+            req.body.priority &&
+            !validPriorities.includes(req.body.priority)
+        ) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message:
+                    "Invalid priority. Must be one of: critical, high, medium, low"
+            });
+            return;
+        }
+
+        // Validate status if provided
+        if (
+            req.body.status &&
+            !validStatuses.includes(req.body.status)
+        ) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message:
+                    "Invalid status. Must be one of: open, in-progress, resolved"
+            });
+            return;
+        }
+
+        // Extract allowed update fields
+        const {
+            title,
+            description,
+            priority,
+            status
+        } = req.body;
+
+        // Only include fields that were actually provided
+        const updateData: Partial<
+            Pick<
+                Ticket,
+                "title" | "description" | "priority" | "status"
+            >
+        > = {
+            ...(title !== undefined ? { title } : {}),
+            ...(description !== undefined ? { description } : {}),
+            ...(priority !== undefined ? { priority } : {}),
+            ...(status !== undefined ? { status } : {})
+        };
+
+        const updatedTicket: Ticket | undefined =
+            await ticketService.updateTicket(
+                id,
+                updateData
+            );
+
+        if (!updatedTicket) {
+            res.status(HTTP_STATUS.NOT_FOUND).json({
+                message: "Ticket not found"
+            });
+            return;
+        }
+
+        res.status(HTTP_STATUS.OK).json({
+            message: "Ticket updated successfully",
+            data: updatedTicket
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};

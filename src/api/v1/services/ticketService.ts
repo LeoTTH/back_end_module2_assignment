@@ -41,3 +41,25 @@ export const createTicket = async (
 
     return structuredClone(newTicket);
 };
+
+// Service function to update a ticket by ID
+export const updateTicket = async (
+    id: number,
+    updateData: Partial<Pick<Ticket, "title" | "description" | "priority" | "status">>
+): Promise<Ticket | undefined> => {
+
+    const index: number = tickets.findIndex(
+        (ticket: Ticket) => ticket.id === id
+    );
+
+    if (index === -1) {
+        return undefined;
+    }
+
+    tickets[index] = {
+        ...tickets[index],
+        ...updateData
+    };
+
+    return structuredClone(tickets[index]);
+};
