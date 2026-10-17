@@ -48,3 +48,61 @@ export const getTicketById = async (
         next(error);
     }
 };
+
+// Controller function to create a new ticket
+export const createTicket = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+
+        if (!req.body.title) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message: "Missing required field: title"
+            });
+            return;
+        }
+
+        if (!req.body.description) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message: "Missing required field: description"
+            });
+            return;
+        }
+
+        const validPriorities: Ticket["priority"][] = [
+            "critical",
+            "high",
+            "medium",
+            "low"
+        ];
+
+        if (
+            !req.body.priority ||
+            !validPriorities.includes(req.body.priority)
+        ) {
+            res.status(HTTP_STATUS.BAD_REQUEST).json({
+                message: "Invalid priority. Must be one of: critical, high, medium, low"
+            });
+            return;
+        }
+
+        const { title, description, priority } = req.body;
+
+        const newTicket: Ticket =
+            await ticketService.createTicket({
+                title,
+                description,
+                priority
+            });
+
+        res.status(HTTP_STATUS.CREATED).json({
+            message: "Ticket created successfully",
+            data: newTicket
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};

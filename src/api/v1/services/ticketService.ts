@@ -13,3 +13,31 @@ export const getTicketById = async (id: number): Promise<Ticket | undefined> => 
 
     return ticket ? structuredClone(ticket) : undefined;
 };
+
+// Service function to create a new ticket
+export const createTicket = async (
+    ticketData: {
+        title: string;
+        description: string;
+        priority: Ticket["priority"];
+    }
+): Promise<Ticket> => {
+
+    const newId: number =
+        tickets.length > 0
+            ? Math.max(...tickets.map((ticket: Ticket) => ticket.id)) + 1
+            : 1;
+
+    const newTicket: Ticket = {
+        id: newId,
+        title: ticketData.title,
+        description: ticketData.description,
+        priority: ticketData.priority,
+        status: "open",
+        createdAt: new Date()
+    };
+
+    tickets.push(newTicket);
+
+    return structuredClone(newTicket);
+};
