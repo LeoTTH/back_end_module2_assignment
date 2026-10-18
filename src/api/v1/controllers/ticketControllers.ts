@@ -196,3 +196,31 @@ export const updateTicket = async (
         next(error);
     }
 };
+
+// Controller function to delete a ticket by ID
+export const deleteTicket = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const id: number = Number(req.params.id);
+
+        const deleted: boolean =
+            await ticketService.deleteTicket(id);
+
+        if (!deleted) {
+            res.status(HTTP_STATUS.NOT_FOUND).json({
+                message: "Ticket not found"
+            });
+            return;
+        }
+
+        res.status(HTTP_STATUS.OK).json({
+            message: "Ticket deleted successfully"
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};

@@ -63,3 +63,21 @@ export const updateTicket = async (
 
     return structuredClone(tickets[index]);
 };
+
+// Service function to delete a ticket by ID
+export const deleteTicket = async (
+    id: number
+): Promise<boolean> => {
+
+    const index: number = tickets.findIndex(
+        (ticket: Ticket) => ticket.id === id
+    );
+
+    if (index === -1) {
+        return false;
+    }
+
+    tickets.splice(index, 1);
+
+    return true;
+};
