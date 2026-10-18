@@ -20,8 +20,13 @@
   },
   "homepage": "https://github.com/LeoTTH/back_end_module2_assignment#readme",
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/morgan": "^1.9.10",
     "@types/node": "^26.6.4",
+    "@types/supertest": "^7.2.1",
+    "jest": "^30.5.2",
+    "supertest": "^7.3.1",
+    "ts-jest": "^29.4.15",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
@@ -32,4 +37,3 @@
     "morgan": "^1.12.1"
   }
 }
-
