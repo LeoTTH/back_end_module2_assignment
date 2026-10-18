@@ -224,3 +224,31 @@ export const deleteTicket = async (
         next(error);
     }
 };
+
+// Controller function to get ticket urgency by ID
+export const getTicketUrgency = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const id: number = Number(req.params.id);
+
+        const urgency = await ticketService.calculateTicketUrgency(id);
+
+        if (!urgency) {
+            res.status(HTTP_STATUS.NOT_FOUND).json({
+                message: "Ticket not found"
+            });
+            return;
+        }
+
+        res.status(HTTP_STATUS.OK).json({
+            message: "Ticket urgency calculated successfully",
+            data: urgency
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};
