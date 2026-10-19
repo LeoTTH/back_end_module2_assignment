@@ -23,5 +23,29 @@ export const tickets: Ticket[] = [
         priority: "medium",
         status: "open",
         createdAt: new Date("2026-10-17T10:00:00.000Z")
-    }
+    },
+    {
+        id:3,
+        title: "Scenario A",
+        description: "Scenario A",
+        priority: "critical",
+        status: "open",
+        createdAt: new Date("2026-10-13T10:00:00.000Z")
+    },
+    {
+        id:4,
+        title: "Scenario B",
+        description: "Scenario B",
+        priority: "high",
+        status: "open",
+        createdAt: new Date("2026-10-14T10:00:00.000Z")
+    },
+    {
+        id:5,
+        title: "Scenario C",
+        description: "Scenario C",
+        priority: "medium",
+        status: "open",
+        createdAt: new Date("2026-10-16T10:00:00.000Z")
+    }    
 ];
